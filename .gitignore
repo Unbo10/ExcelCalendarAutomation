@@ -1,0 +1,10 @@
+# * Ignore Excel normal and lock files
+*.xlsx
+*.xlsx#
+~$*.xlsx
+
+# * Ignore .json files
+*.json
+
+# * Ignore virtual environment
+/venv
