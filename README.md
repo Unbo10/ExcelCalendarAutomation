@@ -4,6 +4,8 @@ This project was made to learn about the use of Google's APIs while remembering 
 
 It is an excesively specific project, but it can serve as a base to other projects and to build an even broader automation system.
 
+Must of the project is based on the [Python quickstart guide to use the Google Calendar API](https://developers.google.com/calendar/api/quickstart/python) and a video courtesty of [NeuralNine](https://www.youtube.com/watch?v=B2E82UPUnOY) that guide me through (cheers to him!).
+
 ## Requirements
 
 - Python 3.6 or higher
