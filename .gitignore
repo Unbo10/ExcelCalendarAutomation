@@ -8,3 +8,9 @@
 
 # * Ignore virtual environment
 /venv
+
+# * Ignore test files
+test.py
+
+# * Ignore output files
+*.log

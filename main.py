@@ -2,6 +2,7 @@
 import datetime
 import os.path
 import pandas as pd
+import sys
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -91,7 +92,7 @@ def add_assignment_to_calendar(service, calendar_id, assignment: dict):
         },
     }
     new_event = service.events().insert(calendarId=calendar_id, body=event).execute()
-    # print(f"Event '{assignment['Assignment']}' created:", new_event.get("htmlLink"))
+    print(f"Event '{assignment['Assignment']}' created:", new_event.get("htmlLink"))
 
 def update_csv(new_assignments: list):
     current_assignments_df: pd.DataFrame = pd.read_csv("assignments.csv")
@@ -101,7 +102,7 @@ def update_csv(new_assignments: list):
     updated_assignments_df.sort_values(by="Due date", ascending=True, inplace=True)
     updated_assignments_df.to_csv("assignments.csv", index=False)
 
-def main():
+def main(file_path: str) -> None:
     # * AUTHENTICATION
     creds = None
     # * The file token.json stores the user's access and refresh tokens, and is
@@ -130,7 +131,7 @@ def main():
         calendar_id = get_calendar_ids(service, calendar_name)
         if calendar_id is None:
             raise ValueError(f"Calendar '{calendar_name}' not found")
-        assignments_df: pd.DataFrame = get_assignments_from_xlsx("Fall_2024.xlsx").sort_values(by="Due date", ascending=True)
+        assignments_df: pd.DataFrame = get_assignments_from_xlsx(file_path).sort_values(by="Due date", ascending=True)
         assignments_df = assignments_df.dropna()
         assignment_history_df: pd.DataFrame = pd.read_csv("assignments.csv")
         assignment_history_df["Due date"] = pd.to_datetime(assignment_history_df["Due date"])
@@ -160,4 +161,4 @@ def main():
 
 
 if __name__ == "__main__":
-  main()
+    main(sys.argv[1])
